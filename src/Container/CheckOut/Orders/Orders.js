@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Order from "../../../Component/Order/Order";
 import classes from "./Orders.css";
+// import * as firebase from "firebase";
 
 import axios from "../../../axios-order";
 class Orders extends Component {
@@ -10,6 +11,15 @@ class Orders extends Component {
     id: null
   };
   componentDidMount() {
+    //there are two ways of getting the array of values chosse the axios why
+    // const refdata = firebase
+    //   .database()
+    //   .ref()
+    //   .child("orders");
+    // refdata.on("value", snap => {
+    //   console.log(snap.val());
+    // });
+
     this.setState({ loading: true });
     axios
       .get("orders.json")
@@ -37,7 +47,7 @@ class Orders extends Component {
           <Order
             key={order.id}
             price={order.priceOfBurger}
-            ingredient={order.ingredients}
+            ingredients={order.ingredients}
           />
         );
       });

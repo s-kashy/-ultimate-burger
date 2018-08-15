@@ -4,7 +4,9 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import * as firebase from "firebase";
 import App from "./App";
+
 import registerServiceWorker from "./registerServiceWorker";
+
 var config = {
   apiKey: "AIzaSyCdQU9tdij7QHG3mM8r_RDLs0UCf2wUq_8",
   authDomain: "react-my-burger-56598.firebaseapp.com",

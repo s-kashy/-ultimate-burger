@@ -1,4 +1,7 @@
 {
     "cSpell.language": "en",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "cSpell.words": [
+        "typeelement"
+    ]
 }
