@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import burgerBuilder from "./store/reducers/burgerBuilder";
+import ordersBurger from "./store/reducers/burgerBuilder";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 import * as firebase from "firebase";
 import App from "./App";
@@ -16,10 +21,31 @@ var config = {
   messagingSenderId: "521616327546"
 };
 firebase.initializeApp(config);
+
+const rooReducer = combineReducers({
+  ing: burgerBuilder,
+  orders: ordersBurger
+});
+
+// const logger = store => {
+//   return next => {
+//     return action => {
+//       console.log("middelWare Dispatching ", action);
+//       const result = next(action);
+//       console.log("getStores", store.getState());
+//       return result;
+//     };
+//   };
+// };
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rooReducer, composeEnhancers(applyMiddleware(thunk)));
+
 const app = (
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 ReactDOM.render(app, document.getElementById("root"));
 registerServiceWorker();
