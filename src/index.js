@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import burgerBuilder from "./store/reducers/burgerBuilder";
-import ordersBurger from "./store/reducers/burgerBuilder";
+import ordersBurger from "./store/reducers/order";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";

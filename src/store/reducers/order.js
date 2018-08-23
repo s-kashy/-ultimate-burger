@@ -1,14 +1,14 @@
 import * as actionType from "../actions/actionType";
 
 const initialState = {
-  orders: null,
+  orders: [],
   loading: false,
   error: "",
-  backHome: false
+  purchased: false
 };
 
-const reducer = (state = initialState, active) => {
-  switch (actionType.type) {
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case actionType.STORE_BURGER_ORDER: {
       const newOrder = {
         ...action.orderData,
@@ -17,7 +17,7 @@ const reducer = (state = initialState, active) => {
       return {
         ...state,
         loading: false,
-        backHome: true,
+        purchased: true,
         orders: state.orders.concat(newOrder)
       };
     }
@@ -28,10 +28,10 @@ const reducer = (state = initialState, active) => {
         loading: false
       };
     }
-    case actionType.REDIRECT_TO_HOME: {
+    case actionType.PURCHASE_INIT: {
       return {
         ...state,
-        backHome: false
+        purchased: false
       };
     }
     case actionType.LOADING_ORDER: {
@@ -40,6 +40,29 @@ const reducer = (state = initialState, active) => {
         loading: true
       };
     }
+    case actionType.LOADING_ALL_ORDERS: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    case actionType.FAIL_ORDER_INIT: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      };
+    }
+    case actionType.FETCH_ORDERS_INIT: {
+      return {
+        ...state,
+        orders: action.orders,
+        loading: false
+      };
+    }
+
+    default:
+      return state;
   }
 };
 export default reducer;

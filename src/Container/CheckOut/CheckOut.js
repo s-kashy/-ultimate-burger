@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import CheckoutSummary from "../../Component/CheckOutSummery/CheckOutSummery";
 import ContactData from "./ContactData/ContactData";
 import { Route, Redirect } from "react-router-dom";
-import * as actionType from "../../store/actions/index";
+
 class CheckOut extends Component {
   // componentWillMount() {
   //   let query = new URLSearchParams(this.props.location.search);
@@ -20,54 +20,46 @@ class CheckOut extends Component {
 
   //   this.setState({ ingredients: queryParams, priceOfBurger: price });
   // }
-  componentWillMount() {
-    this.props.orderSubmitBackHome();
-  }
-  checkOutCancelHandler = () => {
-    this.props.history.goBack();
-  };
+
+  // checkOutCancelHandler = () => {
+  //   this.props.history.goBack();
+  // };
   checkOutContinueHandler = () => {
     this.props.history.push("/checkout/contact-data");
   };
 
   render() {
-    let summary = null;
+    let summary = <Redirect to="/" />;
     if (this.props.ingredients) {
-      if (this.props.navHome) {
-        summary = <Redirect to="/" />;
-      } else {
-        summary = (
-          <div>
-            <CheckoutSummary
-              ingredients={this.props.ingredients}
-              continue={this.checkOutContinueHandler}
-              cancel={this.checkOutCancelHandler}
-            />
-            <Route
-              path={this.props.match.path + "/contact-data"}
-              component={ContactData}
-            />
-          </div>
-        );
-      }
+      const purchasedRedirect = this.props.purchasedBurger ? (
+        <Redirect to="/" />
+      ) : null;
+      console.log("purchase state", this.props.purchasedBurger);
+      summary = (
+        <div>
+          {purchasedRedirect}
+          <CheckoutSummary
+            ingredients={this.props.ingredients}
+            continue={this.checkOutContinueHandler}
+            cancel={this.checkOutCancelHandler}
+          />
+          <Route
+            path={this.props.match.path + "/contact-data"}
+            component={ContactData}
+          />
+        </div>
+      );
     }
 
     return summary;
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    orderSubmitBackHome: () => dispatch(actionType.redirectToHome)
-  };
-};
+
 const mapStateProps = state => {
   return {
     ingredients: state.ing.ingredients,
     priceOfBurger: state.ing.total_price,
-    navHome: state.orders.backHome
+    purchasedBurger: state.orders.purchased
   };
 };
-export default connect(
-  mapStateProps,
-  mapDispatchToProps
-)(CheckOut);
+export default connect(mapStateProps)(CheckOut);

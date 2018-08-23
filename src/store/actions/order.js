@@ -20,9 +20,9 @@ export const loadingOrder = () => {
     type: actionType.LOADING_ORDER
   };
 };
-export const redirectToHome = () => {
+export const purchaseInit = () => {
   return {
-    type: actionType.REDIRECT_TO_HOME
+    type: actionType.PURCHASE_INIT
   };
 };
 export const purchaseBurgerStart = dataOrder => {
@@ -32,10 +32,43 @@ export const purchaseBurgerStart = dataOrder => {
       .post("/order.json", dataOrder)
       .then(response => {
         dispatch(storeBurgerOrder(response.data.name, dataOrder));
-        dispatch(redirectToHome());
       })
       .catch(err => {
         dispatch(purchaseBurgerFail(err));
+      });
+  };
+};
+export const fetchAllOrders = order => {
+  return {
+    type: actionType.FETCH_ORDERS_INIT,
+    orders: order
+  };
+};
+export const failFetchOrder = error => {
+  return {
+    type: actionType.FAIL_ORDER_INIT,
+    error: error
+  };
+};
+// export const loadingAllOrders = () => {
+//   return {
+//     type: actionType.LOADING_ALL_ORDERS
+//   };
+// };
+export const fetchOrderInit = () => {
+  return dispatch => {
+    axios
+      .get("/order.json")
+      .then(response => {
+        console.log("orders get", response.data);
+        let fetchData = [];
+        for (let key in response.data) {
+          fetchData.push({ ...response.data[key], id: key });
+        }
+        dispatch(fetchAllOrders(fetchData));
+      })
+      .catch(() => {
+        dispatch(failFetchOrder());
       });
   };
 };

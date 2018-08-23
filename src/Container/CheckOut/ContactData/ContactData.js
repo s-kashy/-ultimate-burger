@@ -3,7 +3,6 @@ import Button from "../../../Component/UI/Button/Button";
 import classes from "./ContactData.css";
 import { connect } from "react-redux";
 import * as actionType from "../../../store/actions/index";
-
 import Input from "../../../Component/UI/Input/Input";
 import Spinner from "../../../Component/Spinner/Spinner";
 var validator = require("validator");

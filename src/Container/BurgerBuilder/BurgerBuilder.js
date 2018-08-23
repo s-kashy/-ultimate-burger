@@ -88,7 +88,9 @@ class BurgerBuilder extends Component {
   //   this.updatePurchaseState(updatedIngredients);
   // };
   orderContinueHandler = () => {
-    this.props.history.push({ pathname: "checkout/" });
+    this.props.burgerPureChase();
+    this.props.history.push({ pathname: "/checkout" });
+
     // const queryParams = [];
     // for (let i in this.state.ingredients) {
     //   queryParams.push(
@@ -192,14 +194,16 @@ const mapStateHandler = state => {
   return {
     ingredients: state.ing.ingredients,
     totalPrice: state.ing.total_price,
-    error: state.ing.error
+    error: state.ing.error,
+    purChase: state.orders.purchased
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     addIngredient: name => dispatch(burgerBuilder.addIngredient(name)),
     removeIngredient: name => dispatch(burgerBuilder.removeIngredient(name)),
-    getIngredientsFromFirebase: () => dispatch(burgerBuilder.initIngredient())
+    getIngredientsFromFirebase: () => dispatch(burgerBuilder.initIngredient()),
+    burgerPureChase: () => dispatch(burgerBuilder.purchaseInit())
   };
 };
 export default connect(

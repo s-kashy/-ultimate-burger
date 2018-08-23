@@ -7,5 +7,8 @@ export {
   loadingOrder,
   purchaseBurgerStart,
   purchaseBurgerFail,
-  redirectToHome
+  purchaseInit,
+  fetchOrderInit,
+  failFetchOrder,
+  loadingAllOrders
 } from "./order";
