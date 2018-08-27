@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import Order from "../../../Component/Order/Order";
 import classes from "./Orders.css";
 import { connect } from "react-redux";
+import withErrHandler from "../../../Hoc/ErrorHandler";
+import axios from "../../../axios-order";
 import * as actions from "../../../store/actions/index";
 // import * as firebase from "firebase";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.getAllOrders();
+    this.props.getAllOrders(this.props.token);
 
     //there are two ways of getting the array of values chosse the axios why
     // const refdata = firebase
@@ -55,15 +57,16 @@ class Orders extends Component {
 const mapStateProps = state => {
   return {
     orders: state.orders.orders,
-    loading: state.orders.loading
+    loading: state.orders.loading,
+    token: state.auth.token
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getAllOrders: () => dispatch(actions.fetchOrderInit())
+    getAllOrders: token => dispatch(actions.fetchOrderInit(token))
   };
 };
 export default connect(
   mapStateProps,
   mapDispatchToProps
-)(Orders);
+)(withErrHandler(Orders, axios));

@@ -12,3 +12,4 @@ export {
   failFetchOrder,
   loadingAllOrders
 } from "./order";
+export { authUser, logOut } from "./auth";

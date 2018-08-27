@@ -10,6 +10,11 @@ const navigationsItems = props => {
           Burger Builder
         </Navigation>
         <Navigation link="/orders">Orders</Navigation>
+        {!props.auth ? (
+          <Navigation link="/auth">Authenticate</Navigation>
+        ) : (
+          <Navigation link="/logout">Log Out</Navigation>
+        )}
       </ul>
     </div>
   );

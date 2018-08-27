@@ -25,11 +25,11 @@ export const purchaseInit = () => {
     type: actionType.PURCHASE_INIT
   };
 };
-export const purchaseBurgerStart = dataOrder => {
+export const purchaseBurgerStart = (dataOrder, token) => {
   return dispatch => {
     dispatch(loadingOrder());
     axios
-      .post("/order.json", dataOrder)
+      .post("/order.json?auth=" + token, dataOrder)
       .then(response => {
         dispatch(storeBurgerOrder(response.data.name, dataOrder));
       })
@@ -55,10 +55,10 @@ export const failFetchOrder = error => {
 //     type: actionType.LOADING_ALL_ORDERS
 //   };
 // };
-export const fetchOrderInit = () => {
+export const fetchOrderInit = token => {
   return dispatch => {
     axios
-      .get("/order.json")
+      .get("/order.json?auth=" + token)
       .then(response => {
         console.log("orders get", response.data);
         let fetchData = [];

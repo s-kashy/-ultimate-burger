@@ -4,8 +4,9 @@ import Modal from "../../Component/UI/Modal/Modal";
 import Burger from "../../Component/Burger/Burger";
 import BuildContrals from "../../Component/BuildContrals/BuildContrals";
 import OrderSummary from "../../Component/Burger/OrderSummary/OrderSummary";
-
+import withErrorHandler from "../../Hoc/ErrorHandler";
 import { connect } from "react-redux";
+import axios from "../../axios-order";
 import * as burgerBuilder from "../../store/actions/index";
 import Spinner from "../../Component/Spinner/Spinner";
 // const INGREDIENT_PRICES = {
@@ -209,4 +210,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateHandler,
   mapDispatchToProps
-)(BurgerBuilder);
+)(withErrorHandler(BurgerBuilder, axios));

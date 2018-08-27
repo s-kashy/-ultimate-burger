@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Order.css";
-
+import withErrorHandler from "../../Hoc/ErrorHandler";
+import axios from "../../axios-order";
 const Order = props => {
   const ingredient = [];
   let ingredientOutPut = null;
@@ -39,4 +40,4 @@ const Order = props => {
     </div>
   );
 };
-export default Order;
+export default withErrorHandler(Order, axios);

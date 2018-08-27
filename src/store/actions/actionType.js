@@ -10,3 +10,7 @@ export const PURCHASE_INIT = "PURCHASE_INIT";
 export const LOADING_ALL_ORDERS = "LOADING_ALL_ORDERS";
 export const FETCH_ORDERS_INIT = "FETCH_ORDERS_INIT";
 export const FAIL_ORDER_INIT = "FAIL_ORDER_INIT";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_START = "AUTH_START";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const LOG_OUT = "LOG_OUT";

@@ -14,9 +14,9 @@ const SideDrawer = props => {
       <BackDrop visible={props.visible} clickBackDrop={props.clickBackDrop} />
       <div className={attachClasses.join(" ")}>
         <div className={classes.Logo}>
-          <Logo  />
+          <Logo />
         </div>
-        <Navigations />
+        <Navigations auth={props.auth} />
       </div>
     </Aux>
   );

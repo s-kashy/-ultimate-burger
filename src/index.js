@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import burgerBuilder from "./store/reducers/burgerBuilder";
 import ordersBurger from "./store/reducers/order";
+import authUser from "./store/reducers/auth";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
@@ -24,19 +25,10 @@ firebase.initializeApp(config);
 
 const rooReducer = combineReducers({
   ing: burgerBuilder,
-  orders: ordersBurger
+  orders: ordersBurger,
+  auth: authUser
 });
 
-// const logger = store => {
-//   return next => {
-//     return action => {
-//       console.log("middelWare Dispatching ", action);
-//       const result = next(action);
-//       console.log("getStores", store.getState());
-//       return result;
-//     };
-//   };
-// };
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rooReducer, composeEnhancers(applyMiddleware(thunk)));
 

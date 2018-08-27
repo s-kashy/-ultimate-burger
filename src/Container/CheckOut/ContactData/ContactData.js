@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import * as actionType from "../../../store/actions/index";
 import Input from "../../../Component/UI/Input/Input";
 import Spinner from "../../../Component/Spinner/Spinner";
+import withErrorHandler from "../../../Hoc/ErrorHandler";
+import axios from "../../../axios-order";
 var validator = require("validator");
 class ContactData extends Component {
   state = {
@@ -108,7 +110,7 @@ class ContactData extends Component {
       ordered: formData
     };
 
-    this.props.onOrderSubmit(order);
+    this.props.onOrderSubmit(order, this.props.tokenAuth);
   };
 
   checkIfInputValid(value, rules, idInputForm) {
@@ -200,16 +202,18 @@ const mapStateToProps = state => {
   return {
     ingredients: state.ing.ingredients,
     total_price: state.ing.total_price,
-    loading: state.orders.loading
+    loading: state.orders.loading,
+    tokenAuth: state.auth.token
   };
 };
 
 const mapStateDispatchToProps = dispatch => {
   return {
-    onOrderSubmit: data => dispatch(actionType.purchaseBurgerStart(data))
+    onOrderSubmit: (data, token) =>
+      dispatch(actionType.purchaseBurgerStart(data, token))
   };
 };
 export default connect(
   mapStateToProps,
   mapStateDispatchToProps
-)(ContactData);
+)(withErrorHandler(ContactData, axios));
