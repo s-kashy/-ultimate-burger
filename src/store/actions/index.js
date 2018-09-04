@@ -12,4 +12,4 @@ export {
   failFetchOrder,
   loadingAllOrders
 } from "./order";
-export { authUser, logOut } from "./auth";
+export { authUser, logOut, setAuthRedirectPath, authCheckState } from "./auth";

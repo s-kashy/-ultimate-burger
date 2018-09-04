@@ -33,7 +33,7 @@ const BuildContrals = props => {
         disabled={!props.purchasable}
         onClick={props.order}
       >
-        Order Now
+        {props.auth ? "Order Now" : "Sign-Up"}
       </button>
     </div>
   );

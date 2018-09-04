@@ -55,12 +55,13 @@ export const failFetchOrder = error => {
 //     type: actionType.LOADING_ALL_ORDERS
 //   };
 // };
-export const fetchOrderInit = token => {
+export const fetchOrderInit = (token, userId) => {
   return dispatch => {
+    const queryParm =
+      "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
     axios
-      .get("/order.json?auth=" + token)
+      .get("/order.json" + queryParm)
       .then(response => {
-        console.log("orders get", response.data);
         let fetchData = [];
         for (let key in response.data) {
           fetchData.push({ ...response.data[key], id: key });

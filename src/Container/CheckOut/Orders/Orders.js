@@ -9,7 +9,7 @@ import * as actions from "../../../store/actions/index";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.getAllOrders(this.props.token);
+    this.props.getAllOrders(this.props.token, this.props.userId);
 
     //there are two ways of getting the array of values chosse the axios why
     // const refdata = firebase
@@ -58,12 +58,14 @@ const mapStateProps = state => {
   return {
     orders: state.orders.orders,
     loading: state.orders.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getAllOrders: token => dispatch(actions.fetchOrderInit(token))
+    getAllOrders: (token, userId) =>
+      dispatch(actions.fetchOrderInit(token, userId))
   };
 };
 export default connect(

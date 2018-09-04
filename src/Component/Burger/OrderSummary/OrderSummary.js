@@ -3,9 +3,7 @@ import Aux from "../../../Hoc/Hoc";
 import Button from "../../UI/Button/Button";
 
 class OrderSummary extends Component {
-  componentWillUpdate() {
-    console.log("Console did Up date .....");
-  }
+  componentWillUpdate() {}
   render() {
     const order = Object.keys(this.props.ingredients).map(keyIg => {
       return (

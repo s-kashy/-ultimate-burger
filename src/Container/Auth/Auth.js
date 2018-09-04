@@ -5,6 +5,7 @@ import Spinner from "../../Component/Spinner/Spinner";
 import Input from "../../Component/UI/Input/Input";
 import Button from "../../Component/UI/Button/Button";
 import * as actionType from "../../store/actions/index";
+import { Redirect } from "react-router-dom";
 var validator = require("validator");
 
 class Auth extends Component {
@@ -99,7 +100,11 @@ class Auth extends Component {
     }
     this.setState({ authForm: updateStateFrom, formIsValid: validForm });
   };
-
+  componentDidMount() {
+    if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
+      this.props.onSetAuthRedirect();
+    }
+  }
   render() {
     let formData = [];
     let error = null;
@@ -124,12 +129,17 @@ class Auth extends Component {
         />
       );
     });
+    let redirect = null;
+    if (this.props.auth) {
+      redirect = <Redirect to={this.props.authRedirectPath} />;
+    }
     return (
       <div>
         {this.props.loading ? (
           <Spinner />
         ) : (
           <div className={classes.contactData}>
+            {redirect}
             {error}
             <h3>Authentication by Google</h3>
             <form onSubmit={this.submitAuthHandler}>
@@ -154,13 +164,17 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    auth: state.auth.token,
+    buildingBurger: state.ing.building,
+    authRedirectPath: state.auth.authRedirectPath
   };
 };
 const mapStateDispatchToProps = dispatch => {
   return {
     authUserCredential: (email, password, isSignIn) =>
-      dispatch(actionType.authUser(email, password, isSignIn))
+      dispatch(actionType.authUser(email, password, isSignIn)),
+    onSetAuthRedirect: () => dispatch(actionType.setAuthRedirectPath("/"))
   };
 };
 
